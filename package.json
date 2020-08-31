@@ -17,13 +17,17 @@
   },
   "homepage": "https://github.com/ViniciusP78/financas-server#readme",
   "devDependencies": {
+    "@types/cors": "^2.8.7",
     "@types/express": "^4.17.7",
+    "@types/jsonwebtoken": "^8.5.0",
     "rimraf": "^3.0.2",
     "ts-node": "^9.0.0",
     "ts-node-dev": "^1.0.0-pre.61",
     "typescript": "^4.0.2"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
   }
 }
