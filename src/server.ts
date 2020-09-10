@@ -1,14 +1,22 @@
 import express from 'express';
 import cors from 'cors';
-
+import "reflect-metadata";
+import { createConnection } from 'typeorm'
 import routes from './routes'
 
-const app = express();
 
-app.use(express.json()); // Use é utilizado para colocar um plugin no express // Express não entende o formato json por padrão
+createConnection().then(async connection => {
 
-app.use(cors());
+  const app = express();
 
-app.use(routes);
+  app.use(express.json()); // Use é utilizado para colocar um plugin no express // Express não entende o formato json por padrão
 
-app.listen(3333);
+  app.use(cors());
+
+  app.use(routes);
+
+  app.listen(3333);
+
+  console.log('Application Running...');
+
+}).catch(error => console.log("TypeORM connection error: ", error));
