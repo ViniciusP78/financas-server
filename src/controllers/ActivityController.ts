@@ -68,22 +68,30 @@ class ActivityController {
 
       response.json(activityToUpdate);
 
-      // let activity = new Activity();
-      // activity.value = value;
-      // activity.description = desc;
-      // activity.user = user;
-
-      
-      // await activityRepository.save(activity);
-
-      // return response.status(201).json("Atividade Criada (provavelmente)");
     } catch(error) {
       console.log(error);
       return response.sendStatus(500);
     }
 
   }
-  delete (request: Request, response: Response) {}
+  async delete (request: Request, response: Response) {
+    let id = request.params.id;
+
+    try {
+      let user = new User();
+      user.id = Number(response.locals.userId);
+
+      let activityRepository = getManager().getRepository(Activity);
+      let activityToDelete = await activityRepository.findOneOrFail({where: {id, user}})
+      await activityRepository.remove(activityToDelete);
+
+      return response.sendStatus(200);
+
+    } catch(error) {
+      console.log(error);
+      return response.sendStatus(500);
+    }
+  }
 }
 
 export default ActivityController;
