@@ -45,8 +45,43 @@ class ActivityController {
 
 
   }
-  update (request: Request, response: Response) {
-    
+  async update (request: Request, response: Response) {
+
+    let { value, desc } = request.body;
+
+    let id = request.params.id;
+
+    if (!value || !desc) {
+      return response.sendStatus(400);
+    }
+
+    try {
+      let user = new User();
+      user.id = Number(response.locals.userId);
+
+      let activityRepository = getManager().getRepository(Activity);
+      let activityToUpdate = await activityRepository.findOneOrFail({where: {id, user}})
+      activityToUpdate.value = value;
+      activityToUpdate.description = desc;
+      await activityRepository.save(activityToUpdate)
+
+
+      response.json(activityToUpdate);
+
+      // let activity = new Activity();
+      // activity.value = value;
+      // activity.description = desc;
+      // activity.user = user;
+
+      
+      // await activityRepository.save(activity);
+
+      // return response.status(201).json("Atividade Criada (provavelmente)");
+    } catch(error) {
+      console.log(error);
+      return response.sendStatus(500);
+    }
+
   }
   delete (request: Request, response: Response) {}
 }

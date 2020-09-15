@@ -30,6 +30,8 @@ routes.use('/activity', (request, response, next) => {
 })
 routes.get('/activity', activityController.index);
 routes.post('/activity', activityController.create);
+routes.put('/activity/:id', activityController.update);
+routes.delete('/activity/:id', activityController.delete);
 
 
 
