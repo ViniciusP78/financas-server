@@ -1,6 +1,5 @@
 import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
 import { User } from './User'
-import { Source } from './Source'
 
 @Entity()
 export class Activity {
@@ -13,9 +12,6 @@ export class Activity {
 
   @Column()
   value: number;
-
-  @ManyToOne(type => Source, source => source.activities)
-  source: Source;
 
   @Column()
   description: string;

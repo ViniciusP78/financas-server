@@ -60,7 +60,7 @@ class UserController {
     if (user.pass === md5(pass)){
       let token = jwt.sign({id: String(user.id)}, "xcasdsa", {expiresIn:300});
 
-      return response.json({ auth: true, token })
+      return response.json({ auth: true, token, id: user.id })
     }
 
     response.json(user);
